@@ -36,7 +36,6 @@ jobs:
           docker image prune -a -f
           docker container prune
           docker build -t vekawspocregistry.azurecr.io/test-vekin:test .
-          systemctl stop nginx
           docker run -d -p 80:3000 vekawspocregistry.azurecr.io/test-vekin:test
 
   deploy:
