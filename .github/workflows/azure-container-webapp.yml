@@ -33,9 +33,11 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
   
       - run: |
+          docker image prune -a -f
+          docker container prune
           docker build -t vekawspocregistry.azurecr.io/test-vekin:test .
-          docker push vekawspocregistry.azurecr.io/test-vekin:test
-          docker run -d vekawspocregistry.azurecr.io/test-vekin:test
+          systemctl stop nginx
+          docker run -d -p 80:3000 vekawspocregistry.azurecr.io/test-vekin:test
 
   deploy:
     permissions:
